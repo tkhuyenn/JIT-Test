@@ -66,13 +66,13 @@
               </el-form>
             </div>
             <div class="my-5 flex items-center justify-between">
-              <!-- <el-upload
+              <el-upload
                 v-model:file-list="fileList"
                 action="#"
-                :on-preview="handlePreview"
-                :on-remove="handleRemove">
+                multiple
+                :auto-upload="false">
                 <el-button>Upload file</el-button>
-              </el-upload> -->
+              </el-upload>
               <div class="flex justify-end">
                 <el-button
                   type="primary"
@@ -122,10 +122,10 @@
                 </el-table-column>
               </el-table>
               <el-pagination
-                class="mt-5"
                 v-model:current-page="currPage"
                 v-model:page-size="pageSize"
                 :page-sizes="[10, 20, 30, 40]"
+                class="mt-4 flex justify-end"
                 layout="sizes, prev, pager, next"
                 :total="pageSize"
                 @size-change="handleSizeChange"
@@ -134,9 +134,9 @@
           </el-main>
         </el-container>
       </el-main>
-      <div class="h-[200px] w-[600px] mx-auto">
+      <div class="w-full h-[500px] object-cover mx-auto">
         <el-carousel indicator-position="outside" class="" arrow="always">
-          <el-carousel-item v-for="(item, index) in dataTable" :key="index">
+          <!-- <el-carousel-item v-for="(item, index) in dataTable" :key="index">
             <div
               class="flex items-center gap-5 justify-center my-auto h-[inherit]">
               <img :src="item.avatar" alt="" class="w-20 h-20 object-cover" />
@@ -146,6 +146,21 @@
                 <p>Address: {{ item.address.city }}</p>
               </div>
             </div>
+          </el-carousel-item> -->
+          <el-carousel-item>
+            <img
+              src="https://images.unsplash.com/photo-1557858310-9052820906f7?auto=format&fit=crop&q=80&w=2070&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+              alt="" />
+          </el-carousel-item>
+          <el-carousel-item>
+            <img
+              src="https://images.unsplash.com/photo-1495783436593-3015f0bc6f56?auto=format&fit=crop&q=80&w=2070&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+              alt="" />
+          </el-carousel-item>
+          <el-carousel-item>
+            <img
+              src="https://images.unsplash.com/photo-1546142711-1e28c0540deb?auto=format&fit=crop&q=80&w=2071&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+              alt="" />
           </el-carousel-item>
         </el-carousel>
       </div>
@@ -179,6 +194,7 @@ import axios from "axios";
 import SideBar from "@/components/SideBar.vue";
 import Footer from "@/components/Footer.vue";
 import Header from "@/components/Header.vue";
+import type { UploadUserFile } from "element-plus";
 const dataTable = ref<Array<Record<string, any>>>([]);
 const currPage = ref(1);
 const pageSize = ref(20);
@@ -187,7 +203,7 @@ interface IMenu {
   name: string;
   children?: IMenu[];
 }
-
+const fileList = ref<UploadUserFile[]>([]);
 onMounted(() => {
   getDataTable();
 });
