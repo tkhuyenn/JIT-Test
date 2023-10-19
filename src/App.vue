@@ -45,22 +45,25 @@
                   </div>
                   <div class="flex-1">
                     <el-form-item label="Request Time">
-                      <el-input
+                      <el-date-picker
                         v-model="form.requestTime"
-                        placeholder="Enter request time"></el-input>
+                        type="datetime"
+                        placeholder="Select date and time" />
                     </el-form-item>
                     <el-form-item label="Approval date">
-                      <el-input
+                      <el-date-picker
                         v-model="form.approvalDate"
-                        placeholder="Enter approval date"></el-input>
+                        type="datetime"
+                        placeholder="Select date and time" />
                     </el-form-item>
                   </div>
                   <div class="flex-1">
-                    <el-form-item label="Search">
-                      <el-input
-                        v-model="form.search"
-                        placeholder="Search"></el-input>
-                    </el-form-item>
+                    <el-button
+                      type="danger"
+                      class="cursor-pointer"
+                      @click="ElMessage.success('Search')"
+                      >Search</el-button
+                    >
                   </div>
                 </div>
               </el-form>
@@ -195,6 +198,8 @@ import SideBar from "@/components/SideBar.vue";
 import Footer from "@/components/Footer.vue";
 import Header from "@/components/Header.vue";
 import type { UploadUserFile } from "element-plus";
+import { ElMessage } from "element-plus";
+
 const dataTable = ref<Array<Record<string, any>>>([]);
 const currPage = ref(1);
 const pageSize = ref(20);
@@ -298,20 +303,12 @@ const menu = ref([
   },
 ]);
 
-const handleOpen = (key: string, keyPath: string[]) => {
-  console.log(key, keyPath);
-};
-const handleClose = (key: string, keyPath: string[]) => {
-  console.log(key, keyPath);
-};
 const handleSizeChange = (value: number) => {
-  pageSize.value = value;
   dataTable.value = [];
   getDataTable();
 };
 const handleCurrentChange = (value: number) => {
-  currPage.value = value;
-  getDataTable();
+  //
 };
 </script>
 <style scoped lang="scss">
